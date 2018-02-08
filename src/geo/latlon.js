@@ -1,5 +1,5 @@
 // @flow
-'use strict';
+"use strict";
 
 /**
  * A `LatLon` object represents a given latitude and longitude coordinates.
@@ -10,67 +10,67 @@
  * var ll = new LatLon(42.10376, 1.84584);
  */
 class LatLon {
-    lat: number;
-    lon: number;
+	lat: number;
+	lon: number;
 
-    constructor(lat: number, lon: number) {
+	constructor(lat: number, lon: number) {
 
-        const areNumbers = !(isNaN(lat) || isNaN(lon));
-        if (areNumbers) {
+		const areNumbers = !(isNaN(lat) || isNaN(lon));
+		if (areNumbers) {
 
-            this.lat = +lat;
-            this.lon = +lon;
+			this.lat = +lat;
+			this.lon = +lon;
 
-            const validRange = this.lat > -90 && this.lat < 90 &&
-                this.lon > -180 && this.lon < 180;
+			const validRange = this.lat > -90 && this.lat < 90 &&
+				this.lon > -180 && this.lon < 180;
 
-            if (!validRange) {
+			if (!validRange) {
 
-                throw new Error('Invalid LatLon value: Latitude must be between -90 and 90 and Longitude must be between -180 and 180');
+				throw new Error("Invalid LatLon value: Latitude must be between -90 and 90 and Longitude must be between -180 and 180");
 
-            }
+			}
 
-        } else {
+		} else {
 
-            throw new Error(`Invalid LatLon object: (${lat}, ${lon})`);
+			throw new Error(`Invalid LatLon object: (${lat}, ${lon})`);
 
-        }
+		}
 
-    }
+	}
 
-    /**
-     * Set the latitude
-     *
-     * @param {number} lat
-     * @returns {LatLon} `this`
-     */
-    setLatitude(lat: number) {
-        this.lat = lat;
-        return this;
-    }
+	/**
+	 * Set the latitude
+	 *
+	 * @param {number} lat
+	 * @returns {LatLon} `this`
+	 */
+	setLatitude(lat: number) {
+		this.lat = lat;
+		return this;
+	}
 
-    /**
-     * Set the longitude
-     *
-     * @param {number} lon
-     * @returns {LatLon} `this`
-     */
-    setLongitude(lon: number) {
-        this.lon = lon;
-        return this;
-    }
+	/**
+	 * Set the longitude
+	 *
+	 * @param {number} lon
+	 * @returns {LatLon} `this`
+	 */
+	setLongitude(lon: number) {
+		this.lon = lon;
+		return this;
+	}
 
-    /**
-     * Returns the LatLon object as a string.
-     *
-     * @returns {string} The coordinates as a string in the format `'LatLon(lat, lng)'`.
-     * @example
-     * var ll = new LatLon(42.10376, 1.84584);
-     * ll.toString(); //"LatLon(42.10376, 1.84584)"
-     */
-    toString() {
-        return `LatLon(${this.lat}, ${this.lon})`;
-    }
+	/**
+	 * Returns the LatLon object as a string.
+	 *
+	 * @returns {string} The coordinates as a string in the format `'LatLon(lat, lng)'`.
+	 * @example
+	 * var ll = new LatLon(42.10376, 1.84584);
+	 * ll.toString(); //"LatLon(42.10376, 1.84584)"
+	 */
+	toString() {
+		return `LatLon(${this.lat}, ${this.lon})`;
+	}
 
 }
 

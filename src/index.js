@@ -1,14 +1,14 @@
 // @flow
-'use strict';
+"use strict";
 
-const version: string = require('../package.json').version;
-const LatLon = require('./geo/latlon');
-const LatLonBounds = require('./geo/latlonBounds');
+const version: string = require("../package.json").version;
+const LatLon = require("./geo/latlon");
+const LatLonBounds = require("./geo/latlonBounds");
 
 module.exports = {
-    version,
-    LatLon,
-    LatLonBounds
+	version,
+	LatLon,
+	LatLonBounds
 };
 
 /**
