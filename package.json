@@ -13,7 +13,6 @@
     "node": ">=6.4.0"
   },
   "devDependencies": {
-    "@mapbox/batfish": "^1.0.0",
     "babel-eslint": "^8.2.1",
     "browserify": "^15.2.0",
     "coveralls": "^3.0.0",
@@ -74,7 +73,8 @@
     "test": "run-s lint test-flow test-unit",
     "test-unit": "tap --reporter classic --no-coverage test/unit",
     "test-flow": "flow .",
-    "test-cov": "nyc --require=flow-remove-types/register --reporter=text-summary --reporter=lcov --cache npm run test-unit"
+    "test-cov": "nyc --require=flow-remove-types/register --reporter=text-summary --reporter=lcov --cache npm run test-unit",
+    "pre-production": "run-s lint build-min test test-cov"
   },
   "files": [
     "build/",
