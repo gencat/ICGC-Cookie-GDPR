@@ -15,12 +15,15 @@ const LatLon = require("./latlon");
  * var llb = new LatLonBounds(sw, ne);
  */
 class LatLonBounds {
+
 	ne: LatLon;
 	sw: LatLon;
 
 	constructor(sw: LatLon, ne: LatLon) {
+
 		this.setNorthEastCorner(ne);
 		this.setSouthWestCorner(sw);
+
 	}
 
 	/**
@@ -30,8 +33,10 @@ class LatLonBounds {
 	 * @returns {LatLonBounds} `this`
 	 */
 	setNorthEastCorner(ne: LatLon) {
+
 		this.ne = ne;
 		return this;
+
 	}
 
 	/**
@@ -41,8 +46,10 @@ class LatLonBounds {
 	 * @returns {LatLonBounds} `this`
 	 */
 	setSouthWestCorner(sw: LatLon) {
+
 		this.sw = sw;
 		return this;
+
 	}
 
 	/**
@@ -54,7 +61,9 @@ class LatLonBounds {
 	 * llb.getCenter(); //LatLon {lat: 40.78315, lon: -73.96365 }
 	 */
 	getCenter(): LatLon {
+
 		return new LatLon((this.sw.lat + this.ne.lat) / 2, (this.sw.lon + this.ne.lon) / 2);
+
 	}
 
 	/**
@@ -62,14 +71,22 @@ class LatLonBounds {
 	 *
 	 * @returns {LatLon} The southwest corner of the bounding box.
 	 */
-	getSouthWest(): LatLon { return this.sw; }
+	getSouthWest(): LatLon {
+
+		return this.sw;
+
+	}
 
 	/**
 	* Returns the northeast corner
 	*
 	* @returns {LatLon} The northeast corner of the bounding box.
 	 */
-	getNorthEast(): LatLon { return this.ne; }
+	getNorthEast(): LatLon {
+
+		return this.ne;
+
+	}
 
 }
 

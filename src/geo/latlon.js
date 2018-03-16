@@ -10,6 +10,7 @@
  * var ll = new LatLon(42.10376, 1.84584);
  */
 class LatLon {
+
 	lat: number;
 	lon: number;
 
@@ -45,8 +46,10 @@ class LatLon {
 	 * @returns {LatLon} `this`
 	 */
 	setLatitude(lat: number) {
+
 		this.lat = lat;
 		return this;
+
 	}
 
 	/**
@@ -56,8 +59,10 @@ class LatLon {
 	 * @returns {LatLon} `this`
 	 */
 	setLongitude(lon: number) {
+
 		this.lon = lon;
 		return this;
+
 	}
 
 	/**
@@ -69,7 +74,9 @@ class LatLon {
 	 * ll.toString(); //"LatLon(42.10376, 1.84584)"
 	 */
 	toString() {
+
 		return `LatLon(${this.lat}, ${this.lon})`;
+
 	}
 
 }
