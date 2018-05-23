@@ -1,13 +1,13 @@
 {
-  "name": "project-template",
+  "name": "CookiesGDPR",
   "version": "0.0.1",
-  "description": "A javascript project template",
+  "description": "ICGC cookie consent that complies with the GDPR",
   "author": "@geostarters",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/geostarters/js-project-template.git"
+    "url": "git://github.com/geostarters/cookiesGDPR.git"
   },
   "engines": {
     "node": ">=6.4.0"
@@ -29,6 +29,7 @@
     "glob": "^7.1.2",
     "in-publish": "^2.0.0",
     "minifyify": "^7.3.5",
+    "mock-browser": "^0.92.14",
     "npm-run-all": "^4.1.2",
     "package-json-versionify": "^1.0.4",
     "present": "^1.0.0",
@@ -58,12 +59,12 @@
     ]
   },
   "scripts": {
-    "build-dev": "browserify src/index.js --debug --ignore-transform unassertify --standalone project-template > dist/project-template.js",
-    "watch-dev": "watchify src/index.js --debug --ignore-transform unassertify --standalone project-template --outfile dist/project-template-dev.js --verbose",
-    "build-min": "browserify src/index.js --debug --plugin [minifyify --map project-template.js.map --output dist/project-template.js.map] --standalone project-template | derequire > dist/project-template.js",
+    "build-dev": "browserify src/index.js --debug --ignore-transform unassertify --standalone icgc > dist/cookies-icgc-dev.js",
+    "watch-dev": "watchify src/index.js --debug --ignore-transform unassertify --standalone icgc --outfile dist/cookies-icgc-dev.js --verbose",
+    "build-min": "browserify src/index.js --debug --plugin [minifyify --map cookies-icgc.js.map --output dist/cookies-icgc.js.map] --standalone icgc | derequire > dist/cookies-icgc.js",
     "start-server": "st --no-cache -H 127.0.0.1 --port 9966 --index index.html .",
     "start": "run-p watch-dev start-server open",
-	"open": "node build/dev-server.js",
+    "open": "node build/dev-server.js",
     "build-docs": "documentation build --github --format json --config ./docs/documentation.yml --output docs/components/api.json src/index.js",
     "lint": "eslint --fix --cache --ignore-path .gitignore src test bench docs",
     "lint-docs": "documentation lint src/index.js",
