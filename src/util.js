@@ -18,7 +18,7 @@ class Util {
 	}
 
 	static removeClass(element: Object, className: String) {
-		const regex = new RegExp('\\b' + this.escapeRegExp(className) + '\\b');
+		const regex = new RegExp('\\b' + Util.escapeRegExp(className) + '\\b');
 		element.className = element.className.replace(regex, '');
 	}
 
@@ -30,7 +30,7 @@ class Util {
 	}
 
 	// only used for hashing json objects (used for hash mapping palette objects, used when custom colours are passed through JavaScript)
-    static hash(str: String) {
+  static hash(str: String) {
       let hash = 0,
         i, chr, len;
       if (str.length === 0) return hash;
@@ -53,8 +53,8 @@ class Util {
 	}
 
 	// used to get text colors if not set
-    static getContrast(hex: String) {
-		hex = this.normaliseHex(hex);
+  static getContrast(hex: String) {
+		hex = Util.normaliseHex(hex);
 		const r = parseInt(hex.substr(0, 2), 16);
 		const g = parseInt(hex.substr(2, 2), 16);
 		const b = parseInt(hex.substr(4, 2), 16);
@@ -63,8 +63,8 @@ class Util {
 	}
 
 	// used to change color on highlight
-    static getLuminance(hex: String) {
-		let num = parseInt(this.normaliseHex(hex), 16), 
+  static getLuminance(hex: String) {
+		let num = parseInt(Util.normaliseHex(hex), 16), 
 			amt = 38,
 			R = (num >> 16) + amt,
 			B = (num >> 8 & 0x00FF) + amt,
@@ -73,18 +73,36 @@ class Util {
 		return '#'+newColour;
 	}
 
+	static getHoverColour(hex: String) {
+		hex = Util.normaliseHex(hex);
+		// for black buttons
+		if (hex == '000000') {
+		  return '#222';
+		}
+		return Util.getLuminance(hex);
+	}
+
+	static isMobile(userAgent: String) {
+		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+	}
+
+	static isPlainObject(obj: Object) {
+		// The code "typeof obj === 'object' && obj !== null" allows Array objects
+		return typeof obj === 'object' && obj !== null && obj.constructor == Object;
+	}
+
+	static arrayContainsMatches(array: Array, search: String) {
+		for (var i = 0, l = array.length; i < l; ++i) {
+		  var str = array[i];
+		  // if regex matches or string is equal, return true
+		  if ((str instanceof RegExp && str.test(search)) ||
+			(typeof str == 'string' && str.length && str === search)) {
+			return true;
+		  }
+		}
+		return false;
+	}
+
 } 
 
 module.exports = Util;
-
-var util = {
-
-    isMobile: function() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    },
-
-    isPlainObject: function(obj) {
-      // The code "typeof obj === 'object' && obj !== null" allows Array objects
-      return typeof obj === 'object' && obj !== null && obj.constructor == Object;
-    },
-  };

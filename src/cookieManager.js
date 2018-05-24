@@ -19,18 +19,27 @@ class CookieManager {
 	 * @param {String} value The value of the cookie.
 	 * @param {String} days The numbers of days to expire the cookie.
 	 */
-	static setCookie(name: String, value: String, days: number) {
+	static setCookie(name: String, value: String, days: number, domain: ?String, path: ?String) {
 		const d = new Date;
 		d.setTime(d.getTime() + 24*60*60*1000*days);
-		document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+		let cookie = name + "=" + value + ";expires=" + d.toGMTString();
+		if(path){
+			cookie += ";path="+path;
+		}else{
+			cookie += ";path=/";
+		}
+		if(domain){
+			cookie += ";domain="+domain;
+		}
+		document.cookie = cookie;
 	}
 	
 	/**
 	 * Delete the cookies
 	 * @param {String} name The name of the cookie.
 	 */
-	static deleteCookie(name: String) { 
-		this.setCookie(name, '', -1);  
+	static deleteCookie(name: String, domain: ?String, path: ?String) { 
+		this.setCookie(name, '', -1, domain, path);  
 	}
 
 	/**

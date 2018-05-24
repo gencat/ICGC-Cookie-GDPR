@@ -1,8 +1,8 @@
 // @flow
 "use strict";
 
-const cookieconsent = require("./cookieconsent");
-const cookieManager = require("./cookieManager");
+const Cookieconsent = require("./cookieconsent");
+const CookieManager = require("./cookieManager");
 const defaultOptions = require("./defaultOptions");
 
 
@@ -37,7 +37,7 @@ class CookiesICGC {
 		this.gaIds = gaIds;
 		this.cookiesEnabledHandler = null;
 		this.cookiesDisabledHandler = null;
-		window.cookieconsent.initialise(mainOptions);
+		this.cookieconsent = new Cookieconsent(mainOptions);
 		
 	}
 
@@ -67,7 +67,7 @@ class CookiesICGC {
 
 		if (this.hasConsented()) {
 		
-			enableCookies();
+			this.enableCookies();
 
 		}
 
@@ -84,13 +84,23 @@ class CookiesICGC {
 	}
 
 	/**
+	 * Callback called when the cookie consent popup open.
+	 * Show the popup
+	 */
+	onOpen() {
+
+		this.disableCookies();
+
+	}
+
+	/**
 	 * Checks if the user has consented
 	 * @returns {boolean}
 	 */
 	hasConsented() {
 
-		const type = window.cookieconsent.options.type;
-		const didConsent = window.cookieconsent.hasConsented();
+		const type = this.cookieconsent.options.type;
+		const didConsent = this.cookieconsent.hasConsented();
 
 		return type == 'opt-in' && didConsent
 
@@ -101,9 +111,8 @@ class CookiesICGC {
 	}
 
 	enableCookies() {
-
 		this.areCookiesEnabled = true;
-		if("true" === cookieManager.getCookie("gaEnable")){
+		if("true" === CookieManager.getCookie("gaEnable")){
 			this.enableGA();
 		}
 		if(this.cookiesEnabledHandler){
@@ -117,12 +126,12 @@ class CookiesICGC {
 
 	disableCookies() {
 
-		const activeCookies = cookieManager.getAllCookies();
+		const activeCookies = CookieManager.getAllCookies();
 		this.disableGA();
 
 		Object.keys(activeCookies).forEach(
 			function(item) {
-				cookieManager.deleteCookie(item);
+				CookieManager.deleteCookie(item);
 			}
 		);
 
@@ -142,7 +151,7 @@ class CookiesICGC {
 
 		this.changeGAStatusToDisabled(false);
 
-		cookieManager.setCookie("gaEnable", "true", 365);
+		CookieManager.setCookie("gaEnable", "true", 365);
 
 	}
 
@@ -150,7 +159,7 @@ class CookiesICGC {
 
 		this.changeGAStatusToDisabled(true);
 
-		cookieManager.setCookie("gaEnable", "false", 365);
+		CookieManager.setCookie("gaEnable", "false", 365);
 
 	}
 
