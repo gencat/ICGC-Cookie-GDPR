@@ -4,7 +4,9 @@ A small cookie consent banner that complies with the EU GDPR.
 
 This library presents the user with a small banner that shows two buttons to comply with the EU GDPR law. 
 
-If the user **allows** the use of cookies, one is set to remember the selected option and enables the tracking by Google Analytics. If the user **denies** the use of cookies, the option is stored and Google Analytics trackers are disabled.
+---
+If the user _allows_ the use of cookies, **a cookie is set to remember the selected option and enables the tracking by Google Analytics**. If the user _denies_ the use of cookies, **the option is stored and Google Analytics trackers are disabled**. A _configure cookies_ button is shown whenever any option is chosen so the user can change his mind
+---
 
 ## Using the banner on your website
 ### Get the required files
@@ -31,17 +33,50 @@ If the user **allows** the use of cookies, one is set to remember the selected o
 Where:
 
 * The first parameter should be the domain where the cookies are stored
-* The second one is a list of Google Analytics Tracking IDs that will be enabled/disabled if the user allows/disallows it
+* The second one is a list of Google Analytics Tracking IDs that will be enabled/disabled if the user allows/disallows it. **Note:** This library just manages already present Google Analytics trackers, it does **NOT** add or remove trackers.
 * The third one is an options parameter that's used to configure the popup. You can find the list of possible parameters [here](https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/src/defaultOptions.js) but the most important ones are the following ones:
 
 |Element|Subelement|Description|
 |---|---|---|
 |cookie|name|This is the name of the cookie that will be set to save the user preferences|
-||path| This is the url path that the cookie belongs to. The cookie can only be read at this location |
 |content|message|The text used by the popup|
 ||allow|The text used in the Allow button|
 ||deny|The text used in the Deny button|
 ||href|The URL where the user will be directed when the privacy policy link is pressed|
+|configBtnSelector||**Required:** A div element selector **already existing on your HTML** where the configure cookies button will be shown|
+
+#### Examples
+These examples work on the following HTML
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./dist/cookies-icgc.min.css">
+</head>
+<body>
+	<div id="control"></div>
+	<script src="./dist/cookies-icgc.js"></script>
+</body>
+</html>
+```
+![Simple example](./docs/examples/no-customization.png)
+```html
+<script>
+		new icgc.CookiesICGC("instamaps.cat",[], {configBtnSelector: "#control"});
+</script>
+```
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain and doesn't manage any Google Analytics tracker.
+
+
+```html
+<script>
+		new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"], {configBtnSelector: "#config-button-selector"});
+</script>
+```
 
 ## Building and testing the library
 
