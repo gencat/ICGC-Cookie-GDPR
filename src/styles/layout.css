@@ -2,10 +2,10 @@
 /* By layout, we mean the physical position of the elements on the popup window, and the margin / padding around those elements. */
 
 
-.cc-revoke.cc-top {top:0; left: 3em; border-bottom-left-radius:.5em;border-bottom-right-radius:.5em;}
-.cc-revoke.cc-bottom {bottom:0; left: 3em; border-top-left-radius:.5em;border-top-right-radius:.5em;}
-.cc-revoke.cc-left{left: 3em; right: unset;}
-.cc-revoke.cc-right{right: 3em; left: unset;}
+.cc-config.cc-top {top:0; left: 3em; border-bottom-left-radius:.5em;border-bottom-right-radius:.5em;}
+.cc-config.cc-bottom {bottom:0; left: 3em; border-top-left-radius:.5em;border-top-right-radius:.5em;}
+.cc-config.cc-left{left: 3em; right: unset;}
+.cc-config.cc-right{right: 3em; left: unset;}
 
 /**************************************** FLOATING ****************************************/
 

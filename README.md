@@ -1,57 +1,75 @@
-# Javascript Project Template
+# ICGC-Cookie-GDPR
 
-Base javascript project with a default configuration
+A small cookie consent banner that complies with the EU GDPR.
 
-* Uses [unassert](https://github.com/unassert-js/unassert) to encourage programming with assertions
-* Generates a single file package using [browserify](http://browserify.org/)
-* Uses [st](https://github.com/isaacs/st) to provide a server to serve static files for quick debugging of the package
-* Uses [documentation.js](https://github.com/documentationjs/documentation) to generate a JSON file to be consumed by another package (see the [documenting the code](#documentation) section) (TODO: Ingest it with [@mapbox/batfish](https://github.com/mapbox/batfish)?)
-* Uses [eslint](https://eslint.org/) to perform static analysis in code
-* Uses [flow](https://flow.org/) to check types (see the [using types](#types) section)
-* Uses [node-tap](https://github.com/tapjs/node-tap) for testing (see the [writting tests](#testing) section)
-* Uses [nyc](https://github.com/istanbuljs/nyc) to run Istanbul's coverage testing
-* Provides a small source file and its corresponding test as an example
+This library presents the user with a small banner that shows two buttons to comply with the EU GDPR law. 
 
-## <a name="documentation"></a>Documenting the code
-The documentation follows the [JSDoc](http://usejsdoc.org/about-getting-started.html) syntax. 
+If the user **allows** the use of cookies, one is set to remember the selected option and enables the tracking by Google Analytics. If the user **denies** the use of cookies, the option is stored and Google Analytics trackers are disabled.
 
-To get started you can read the documentation.js start guide [here](https://github.com/documentationjs/documentation/blob/master/docs/GETTING_STARTED.md) or take a look at the provided example file [here](https://github.com/geostarters/js-project-template/blob/master/src/geo/latlon.js)
+## Using the banner on your website
+### Get the required files
+* Copy the files found in the _dist_ folder to your project and use it in your html
 
-## <a name="types"></a>Using types
-Using flow provides a way to check for common syntax errors while calling functions. Flow provides a simple example of which kind of problems it can solve in their [Type Annotations guide](https://flow.org/en/docs/types/). There's also a list of annotations it supports there.
 
-## <a name="testing"></a>Writting tests
-[Node-tap](https://github.com/tapjs/node-tap) implements the [Test Anything Protocol](https://testanything.org/).
+```html
+<link rel="stylesheet" href="./dist/cookies-icgc.min.css">
+<script src="./dist/cookies-icgc.js"></script>
+```
 
-Take a look at the [Node-tap API](http://www.node-tap.org/api/) to check all the supported functions. 
+* or use the github stored files to always use the last version
+```html
+<link rel="stylesheet" href="https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/dist/cookies-icgc.min.css">
+<script src="https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/dist/cookies-icgc.js"></script>
+```
 
-Check the provided [example file](https://github.com/geostarters/js-project-template/blob/master/test/unit/latlon.test.js) to see how node-tap testing looks.
+### Create the cookie manager object in a script
+```html
+<script>
+		new icgc.CookiesICGC("yourdomain.com", ["your-google-analytics-id", "another-google-analytics-id"], {configBtnSelector: "#config-button-selector"});
+</script>
+```
+Where:
 
-Run the [testing coverage]() script to see which percentage of code is being tested. Aim for the moon, bigger is obviously better.
+* The first parameter should be the domain where the cookies are stored
+* The second one is a list of Google Analytics Tracking IDs that will be enabled/disabled if the user allows/disallows it
+* The third one is an options parameter that's used to configure the popup. You can find the list of possible parameters [here](https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/src/defaultOptions.js) but the most important ones are the following ones:
 
-## Provided scripts
+|Element|Subelement|Description|
+|---|---|---|
+|cookie|name|This is the name of the cookie that will be set to save the user preferences|
+||path| This is the url path that the cookie belongs to. The cookie can only be read at this location |
+|content|message|The text used by the popup|
+||allow|The text used in the Allow button|
+||deny|The text used in the Deny button|
+||href|The URL where the user will be directed when the privacy policy link is pressed|
 
-* __build-dev__: Creates a single file package with all the assertions intact. 
-* __watch-dev__: Watches the source
-* __build-min__: Creates a minified package with its map file and without assertions
-* __start-server__: Starts a debug server on the current directory
-* __start__: Watches the source for changes and runs the debug server
-* __build-docs__: Generates the documentation file
-* __lint__: Checks the code linting
-* __lint-docs__: Lints the documentation files
-* __test__: Runs the static type checker and runs the tests
-* __test-unit__: Runs the unit tests
-* __test-flow__: Runs the static type checks
-* __test-cov__: Runs the testing coverage
-* __pre-production__: Runs all the required scripts to check if the code is ready for production
+## Building and testing the library
 
-## Folder structure
-__debug:__ Contains a simple html file that loads the generated package file. All the functionalities should have an html file here demoing how it works
+Install the dependencies
+```
+npm install
+```
 
-__dist:__ Contains the built files generated by the scripts (dev package, minified package and map)
+Building the library
+```
+npm run build-dev
+```
+Testing the library
+```
+npm run lint
+npm run test-unit
+```
+Building to release
+```
+npm run build-min
+```
 
-__src:__ Contains an index file that requires all the modules that should be exported and all the source files that compound the package.
+To see an extensive list of the available scripts you can take a look [here](https://github.com/geostarters/js-project-template#provided-scripts)
 
-__test:__ Contains the unit and integration tests
+## Acknowledgements
+This cookie consent banner is heavily based on the [Insites cookieconsent](https://github.com/insites/cookieconsent) work and has been adapted to meet the requirements of the ICGC
+
+## License
+This library is provided under the [MIT licence](http://opensource.org/licenses/MIT)
 
 

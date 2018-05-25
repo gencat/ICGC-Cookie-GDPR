@@ -1,6 +1,6 @@
 
 @media print {
-  .cc-window, .cc-revoke {
+  .cc-window, .cc-config {
     display: none;
   }
 }

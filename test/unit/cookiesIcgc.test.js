@@ -2,7 +2,7 @@
 
 require("flow-remove-types/register");
 const test = require("tap").test;
-var MockBrowser = require('mock-browser').mocks.MockBrowser;
+const MockBrowser = require("mock-browser").mocks.MockBrowser;
 global.window = new MockBrowser().getWindow();
 global.document = new MockBrowser().getDocument();
 global.location = new MockBrowser().getLocation();

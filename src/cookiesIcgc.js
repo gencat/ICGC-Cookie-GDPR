@@ -1,17 +1,18 @@
 // @flow
 "use strict";
 
-const Cookieconsent = require("./cookieconsent");
+const CookieConsent = require("./cookieconsent");
 const CookieManager = require("./cookieManager");
 const defaultOptions = require("./defaultOptions");
 
 
 class CookiesICGC {
+
 	gaIds: Array<String>;
 	areCookiesEnabled: boolean;
 	cookiesEnabledHandler: Function;
 	cookiesDisabledHandler: Function;
-	
+
 	/**
 	 * A `CookiesICGC` object represents the object that manages the cookie consent under the European GDPR law
 	 * disabling Google Analytics cookies if needed
@@ -23,22 +24,45 @@ class CookiesICGC {
 	 * var cookies = new CookiesICGC("www.instamaps.cat", ["UA-12345678-1"], {position: "top", content { message: "Vols cookies?" }});
 	 */
 	constructor(domain: String, gaIds: Array<String>, options: ?Object) {
-		
+
 		const mainOptions = Object.assign({}, defaultOptions, options);
 
 		mainOptions.cookie.domain = domain;
-		mainOptions.onInitialise = this.onInit;
-		mainOptions.onStatusChange = this.onChange;
-		mainOptions.onRevokeChoice = this.onRevoke;
-		mainOptions.onPopupOpen = this.onOpen;
+		mainOptions.onInitialise = () => {
+
+			this.onInit();
+
+		};
+		mainOptions.onStatusChange = () => {
+
+			this.onChange();
+
+		};
+		mainOptions.onResetConfig =  () => {
+
+			this.onResetConfig();
+
+		};
 
 		this.areCookiesEnabled = false;
 		this.gaDisablePrefix = "ga-disable-";
 		this.gaIds = gaIds;
 		this.cookiesEnabledHandler = null;
 		this.cookiesDisabledHandler = null;
-		this.cookieconsent = new Cookieconsent(mainOptions);
-		
+		this.cookieConsent = new CookieConsent(mainOptions);
+
+		this.onInit();
+
+		if (!this.hasAnswered()) {
+
+			this.cookieConsent.createPopup();
+
+		} else {
+
+			this.cookieConsent.createConfigButton();
+
+		}
+
 	}
 
 	/**
@@ -48,14 +72,16 @@ class CookiesICGC {
 	onInit() {
 
 		if (this.hasConsented()) {
-	        
-			this.enableCookies();
-			
-	    } else {
 
-	    	this.disableCookies();
-			
-	    }
+			this.enableCookies();
+
+		} else {
+
+			this.disableCookies();
+
+		}
+
+		this.cookieConsent.onInit();
 
 	}
 
@@ -66,7 +92,8 @@ class CookiesICGC {
 	onChange() {
 
 		if (this.hasConsented()) {
-		
+
+			CookieManager.setCookie("gaEnable", "true", 365);
 			this.enableCookies();
 
 		}
@@ -74,22 +101,13 @@ class CookiesICGC {
 	}
 
 	/**
-	 * Callback called when the cookie consent has been revoked.
+	 * Callback called when the cookie config has been reset.
 	 * Disables the cookies
 	 */
-	onRevoke() {
+	onResetConfig() {
 
-		this.disableCookies();
-
-	}
-
-	/**
-	 * Callback called when the cookie consent popup open.
-	 * Show the popup
-	 */
-	onOpen() {
-
-		this.disableCookies();
+		this.deleteCookies();
+		this.cookieConsent.createPopup();
 
 	}
 
@@ -99,45 +117,69 @@ class CookiesICGC {
 	 */
 	hasConsented() {
 
-		const type = this.cookieconsent.options.type;
-		const didConsent = this.cookieconsent.hasConsented();
-
-		return type == 'opt-in' && didConsent
+		return this.cookieConsent.hasConsented();
 
 	}
 
-	setCookiesEnableHandler(callback: Function){
+	/**
+	 * Checks if the user has answered
+	 * @returns {boolean}
+	 */
+	hasAnswered() {
+
+		return this.cookieConsent.hasAnswered();
+
+	}
+
+	setCookiesEnableHandler(callback: Function) {
+
 		this.cookiesEnabledHandler = callback;
+
 	}
 
 	enableCookies() {
+
 		this.areCookiesEnabled = true;
-		if("true" === CookieManager.getCookie("gaEnable")){
-			this.enableGA();
-		}
-		if(this.cookiesEnabledHandler){
+		this.enableGA();
+
+		if (this.cookiesEnabledHandler) {
+
 			this.cookiesEnabledHandler();
+
 		}
+
 	}
 
- 	setCookiesDisabledHandler(callback: Function){
+	setCookiesDisabledHandler(callback: Function) {
+
 		this.cookiesDisabledHandler = callback;
+
+	}
+
+	deleteCookies() {
+
+		const activeCookies = CookieManager.getAllCookies();
+		Object.keys(activeCookies).forEach(
+			(item) => {
+
+				CookieManager.deleteCookie(item);
+
+			}
+		);
+
 	}
 
 	disableCookies() {
 
-		const activeCookies = CookieManager.getAllCookies();
 		this.disableGA();
-
-		Object.keys(activeCookies).forEach(
-			function(item) {
-				CookieManager.deleteCookie(item);
-			}
-		);
 
 		this.areCookiesEnabled = false;
 
-		this.cookiesDisabledHandler();
+		if (this.cookiesDisabledHandler) {
+
+			this.cookiesDisabledHandler();
+
+		}
 
 	}
 
@@ -159,7 +201,11 @@ class CookiesICGC {
 
 		this.changeGAStatusToDisabled(true);
 
-		CookieManager.setCookie("gaEnable", "false", 365);
+		if (CookieManager.hasCookie("gaEnable")) {
+
+			CookieManager.setCookie("gaEnable", "false", 365);
+
+		}
 
 	}
 
@@ -167,12 +213,13 @@ class CookiesICGC {
 
 		this.gaIds.forEach(gaId => {
 
+			// eslint-disable-next-line no-undef
 			window[`${this.gaDisablePrefix}${gaId}`] = shouldDisable;
 
 		});
 
 	}
-	
+
 }
 
 module.exports = CookiesICGC;

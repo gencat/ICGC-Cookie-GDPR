@@ -1,6 +1,6 @@
 
 /* the popup window */
-.cc-window, .cc-revoke {
+.cc-window, .cc-config {
   position: fixed;
   overflow: hidden;
   box-sizing: border-box; /* exclude padding when dealing with width */
@@ -32,10 +32,10 @@
   flex-direction:  row;
 }
 
-.cc-revoke {
+.cc-config {
   padding: .5em;
 }
-.cc-revoke:hover {
+.cc-config:hover {
   text-decoration: underline;
 }
 
@@ -45,7 +45,7 @@
 }
 
 /* clickable things */
-.cc-btn, .cc-link, .cc-close, .cc-revoke {
+.cc-btn, .cc-link, .cc-close, .cc-config {
   cursor: pointer;
 }
 

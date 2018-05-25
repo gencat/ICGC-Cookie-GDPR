@@ -1,13 +1,13 @@
 {
-  "name": "CookiesGDPR",
+  "name": "ICGC-cookie-gdpr",
   "version": "0.0.1",
-  "description": "ICGC cookie consent that complies with the GDPR",
+  "description": "A small cookie consent banner that complies with the EU GDPR",
   "author": "@geostarters",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/geostarters/cookiesGDPR.git"
+    "url": "git://github.com/gencat/ICGC-Cookie-GDPR.git"
   },
   "engines": {
     "node": ">=6.4.0"
