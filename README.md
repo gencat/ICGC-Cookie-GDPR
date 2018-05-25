@@ -63,12 +63,13 @@ These examples work on the following HTML
 </body>
 </html>
 ```
-![Simple example](./docs/examples/no-customization.png)
+
 ```html
 <script>
 		new icgc.CookiesICGC("instamaps.cat",[], {configBtnSelector: "#control"});
 </script>
 ```
+![Simple example](./docs/examples/no-customization.png)
 Shows the default popup, sets a cookie on the _instamaps.cat_ domain and doesn't manage any Google Analytics tracker.
 
 
