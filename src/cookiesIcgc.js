@@ -96,6 +96,10 @@ class CookiesICGC {
 			CookieManager.setCookie("gaEnable", "true", 365);
 			this.enableCookies();
 
+		} else {
+
+			this.disableCookies();
+
 		}
 
 	}
