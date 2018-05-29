@@ -1,7 +1,7 @@
 // @flow
 "use strict";
 
-const util = require("./util");
+const Utils = require("./utils");
 
 class Popup {
 
@@ -65,7 +65,7 @@ class Popup {
 
 			this.element.style.display = "";
 
-			util.removeClass(this.element, "cc-invisible");
+			Utils.removeClass(this.element, "cc-invisible");
 
 			if (this.options.onPopupOpen) {
 
@@ -105,7 +105,7 @@ class Popup {
 
 	isOpen() {
 
-		return this.element && this.element.style.display === "" && !util.hasClass(this.element, "cc-invisible");
+		return this.element && this.element.style.display === "" && !Utils.hasClass(this.element, "cc-invisible");
 
 	}
 
@@ -171,7 +171,7 @@ class Popup {
 
 		Object.keys(opts.elements).forEach((prop) => {
 
-			interpolated[prop] = util.interpolateString(opts.elements[prop], (name) => {
+			interpolated[prop] = Utils.interpolateString(opts.elements[prop], (name) => {
 
 				const str = opts.content[name];
 				return (name && typeof str == "string" && str.length) ? str : "";
@@ -184,7 +184,7 @@ class Popup {
 		const complianceType = opts.compliance;
 
 		// build the compliance types from the already interpolated `elements`
-		interpolated.compliance = util.interpolateString(complianceType, (name) => {
+		interpolated.compliance = Utils.interpolateString(complianceType, (name) => {
 
 			return interpolated[name];
 
@@ -198,7 +198,7 @@ class Popup {
 
 		}
 
-		return util.interpolateString(layout, (match) => {
+		return Utils.interpolateString(layout, (match) => {
 
 			return interpolated[match];
 
@@ -220,9 +220,9 @@ class Popup {
 
 		el.style.display = "none";
 
-		if (util.hasClass(el, "cc-window")) {
+		if (Utils.hasClass(el, "cc-window")) {
 
-			util.addClass(el, "cc-invisible");
+			Utils.addClass(el, "cc-invisible");
 
 		}
 
@@ -265,9 +265,9 @@ class Popup {
 	// single rule (something that happened a lot), the apps has changed slightly now though, so inline styles might be more applicable.
 	attachCustomPalette(palette) {
 
-		const hash = util.hash(JSON.stringify(palette));
+		const hash = Utils.hash(JSON.stringify(palette));
 		const selector = `cc-color-override-${hash}`;
-		const isValid = util.isPlainObject(palette);
+		const isValid = Utils.isPlainObject(palette);
 
 		this.customStyleSelector = isValid ? selector : null;
 
@@ -291,7 +291,7 @@ class Popup {
 		if (popup) {
 
 			// assumes popup.background is set
-			popup.text = popup.text ? popup.text : util.getContrast(popup.background);
+			popup.text = popup.text ? popup.text : Utils.getContrast(popup.background);
 			popup.link = popup.link ? popup.link : popup.text;
 			colorStyles[`${prefix}.cc-window`] = [
 				`color: ${popup.text}`,
@@ -304,7 +304,7 @@ class Popup {
 			if (button) {
 
 				// assumes button.background is set
-				button.text = button.text ? button.text : util.getContrast(button.background);
+				button.text = button.text ? button.text : Utils.getContrast(button.background);
 				button.border = button.border ? button.border : "transparent";
 				colorStyles[`${prefix} .cc-btn`] = [
 					`color: ${button.text}`,
@@ -315,7 +315,7 @@ class Popup {
 				if (button.background !== "transparent") {
 
 					colorStyles[`${prefix} .cc-btn:hover, ${prefix} .cc-btn:focus`] = [
-						`background-color: ${util.getHoverColour(button.background)}`
+						`background-color: ${Utils.getHoverColour(button.background)}`
 					];
 
 				}
@@ -323,7 +323,7 @@ class Popup {
 				if (highlight) {
 
 				//assumes highlight.background is set
-					highlight.text = highlight.text ? highlight.text : util.getContrast(highlight.background);
+					highlight.text = highlight.text ? highlight.text : Utils.getContrast(highlight.background);
 					highlight.border = highlight.border ? highlight.border : "transparent";
 					colorStyles[`${prefix} .cc-highlight .cc-btn:first-child`] = [
 						`color: ${highlight.text}`,

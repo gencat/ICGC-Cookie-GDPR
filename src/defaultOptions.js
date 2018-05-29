@@ -31,6 +31,7 @@ module.exports = {
 		link: "política de galetes",
 		href: "http://www.icgc.cat/L-ICGC/Sobre-l-ICGC/Politiques/Politica-de-proteccio-de-dades-personals/Politica-de-galetes-cookies",
 		close: "&#x274c;",
+		config: "Configurar cookies"
 	},
 
 	// This is the HTML for the elements above. The string {{header}} will be replaced with the equivalent text below.
@@ -55,7 +56,7 @@ module.exports = {
 
 	// This is the html for the config button. This only shows up after the user has selected their level of consent
 	// It must include the cc-config class
-	configBtn: "<div class=\"cc-config {{classes}}\">Configurar cookies</div>",
+	configBtn: "<div class=\"cc-config {{config-class}}\">{{config-text}}</div>",
 
 	// This is the element selector where the config button will be added
 	configBtnSelector: "",

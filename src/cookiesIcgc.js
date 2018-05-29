@@ -3,6 +3,7 @@
 
 const CookieConsent = require("./cookieconsent");
 const CookieManager = require("./cookieManager");
+const Utils = require("./utils");
 const defaultOptions = require("./defaultOptions");
 
 
@@ -25,7 +26,7 @@ class CookiesICGC {
 	 */
 	constructor(domain: String, gaIds: Array<String>, options: ?Object) {
 
-		const mainOptions = Object.assign({}, defaultOptions, options);
+		const mainOptions = Utils.deepMerge({}, defaultOptions, options);
 
 		mainOptions.cookie.domain = domain;
 		mainOptions.onInitialise = () => {
@@ -96,6 +97,16 @@ class CookiesICGC {
 			CookieManager.setCookie("gaEnable", "true", 365);
 			this.enableCookies();
 
+			if (this.cookiesEnabledHandler) {
+
+				this.cookiesEnabledHandler();
+
+			}
+
+		} else if (this.cookiesDisabledHandler) {
+
+			this.cookiesDisabledHandler();
+
 		}
 
 	}
@@ -131,7 +142,7 @@ class CookiesICGC {
 
 	}
 
-	setCookiesEnableHandler(callback: Function) {
+	setCookiesEnabledHandler(callback: Function) {
 
 		this.cookiesEnabledHandler = callback;
 
@@ -141,12 +152,6 @@ class CookiesICGC {
 
 		this.areCookiesEnabled = true;
 		this.enableGA();
-
-		if (this.cookiesEnabledHandler) {
-
-			this.cookiesEnabledHandler();
-
-		}
 
 	}
 
@@ -174,12 +179,6 @@ class CookiesICGC {
 		this.disableGA();
 
 		this.areCookiesEnabled = false;
-
-		if (this.cookiesDisabledHandler) {
-
-			this.cookiesDisabledHandler();
-
-		}
 
 	}
 

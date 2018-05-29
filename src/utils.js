@@ -1,7 +1,7 @@
 // @flow
 "use strict";
 
-class Util {
+class Utils {
 
 	static escapeRegExp(str: String) {
 
@@ -12,9 +12,9 @@ class Util {
 	static hasClass(element: Object, selector: String) {
 
 		const s = " ";
+		const classFound = (s + element.className + s).replace(/[\n\t]/g, s).indexOf(s + selector + s) >= 0;
 		// eslint-disable-next-line no-undef
-		return element.nodeType === Node.ELEMENT_NODE &&
-			(s + element.className + s).replace(/[\n\t]/g, s).indexOf(s + selector + s) >= 0;
+		return element.nodeType === Node.ELEMENT_NODE && classFound;
 
 	}
 
@@ -26,7 +26,7 @@ class Util {
 
 	static removeClass(element: Object, className: String) {
 
-		const regex = new RegExp(`\\b${Util.escapeRegExp(className)}\\b`);
+		const regex = new RegExp(`\\b${Utils.escapeRegExp(className)}\\b`);
 		element.className = element.className.replace(regex, "");
 
 	}
@@ -82,7 +82,7 @@ class Util {
 	// used to get text colors if not set
 	static getContrast(hex: String) {
 
-		hex = Util.normaliseHex(hex);
+		hex = Utils.normaliseHex(hex);
 		const r = parseInt(hex.substr(0, 2), 16);
 		const g = parseInt(hex.substr(2, 2), 16);
 		const b = parseInt(hex.substr(4, 2), 16);
@@ -94,7 +94,7 @@ class Util {
 	// used to change color on highlight
 	static getLuminance(hex: String) {
 
-		const num = parseInt(Util.normaliseHex(hex), 16),
+		const num = parseInt(Utils.normaliseHex(hex), 16),
 			amt = 38,
 			R = (num >> 16) + amt,
 			B = (num >> 8 & 0x00FF) + amt,
@@ -106,14 +106,14 @@ class Util {
 
 	static getHoverColour(hex: String) {
 
-		hex = Util.normaliseHex(hex);
+		hex = Utils.normaliseHex(hex);
 		// for black buttons
 		if (hex === "000000") {
 
 			return "#222";
 
 		}
-		return Util.getLuminance(hex);
+		return Utils.getLuminance(hex);
 
 	}
 
@@ -148,6 +148,79 @@ class Util {
 
 	}
 
+	/**
+	 * Merges all the enumerable properties of source objects into the target
+	 * object. Subobjects are also merged
+	 *
+	 * @param {Object} target The target object
+	 * @param {Object} sources A list of source objects
+	 * @returns {Object} The target object
+	 */
+	// eslint-disable-next-line no-unused-vars
+	static deepMerge(target: Object, ...sources: Object) {
+
+		let newObj = target;
+		// arguments is not an Array, it's Array-like!
+		const newSources = Array.prototype.slice.call(arguments, 1);
+
+		newSources.forEach((source) => {
+
+			newObj = Utils.singleDeepMerge(newObj, source);
+
+		});
+
+		return newObj;
+
+	}
+
+	/**
+	 * Merges all the enumerable properties of a source objects into the target
+	 * object. Subobjects are also merged
+	 *
+	 * @param {Object} target The target object
+	 * @param {Object} source The source object to merge
+	 * @returns {Object} The target object
+	 */
+	static singleDeepMerge(target: Object, source: Object) {
+
+		for (const prop in source) {
+
+			// Check if it's an enumerable property so we don't
+			// overwrite properties like length or functions
+			if (source.propertyIsEnumerable(prop)) {
+
+				let sourceValue = source[prop];
+				let targetValue = target[prop];
+
+				if (!targetValue) {
+
+					targetValue = {};
+
+				}
+
+				if (Array.isArray(sourceValue)) {
+
+					sourceValue = sourceValue.slice(0);
+
+				} else if (typeof sourceValue === "object" && !Array.isArray(targetValue)) {
+
+					sourceValue = Utils.singleDeepMerge(targetValue, sourceValue);
+
+				} else if (typeof sourceValue === "object" && Array.isArray(targetValue)) {
+
+					sourceValue = Utils.singleDeepMerge({}, sourceValue);
+
+				}
+
+				target[prop] = sourceValue;
+
+			}
+
+		}
+		return target;
+
+	}
+
 }
 
-module.exports = Util;
+module.exports = Utils;

@@ -27,7 +27,9 @@ If the user _allows_ the use of cookies, **a cookie is set to remember the selec
 ### Create the cookie manager object in a script
 ```html
 <script>
-		new icgc.CookiesICGC("yourdomain.com", ["your-google-analytics-id", "another-google-analytics-id"], {configBtnSelector: "#config-button-selector"});
+		const cuqui = new icgc.CookiesICGC("yourdomain.com", 	["your-google-analytics-id", "another-google-analytics-id"], {configBtnSelector: "#config-button-selector"});
+		cuqui.setCookiesEnabledHandler(() => { console.log("Cookies enabled")});
+		cuqui.setCookiesDisabledHandler(() => { console.log("Cookies disabled")});
 </script>
 ```
 Where:
@@ -42,8 +44,11 @@ Where:
 |content|message|The text used by the popup|
 ||allow|The text used in the Allow button|
 ||deny|The text used in the Deny button|
+||configButton|The text used in the configuration button that will be shown when the user has choosen some option|
 ||href|The URL where the user will be directed when the privacy policy link is pressed|
 |configBtnSelector||**Required:** A div element selector **already existing on your HTML** where the configure cookies button will be shown|
+* The _setCookiesEnabledHandler_ function is used to set a callback that will be run when the user has enabled the cookies by pressing the **Allow** button
+* The _setCookiesDisabledHandler_ function is used to set a callback that will be run when the user has disabled the cookies by pressing the **Deny** button
 
 #### Examples
 These examples work on the following HTML
@@ -66,7 +71,7 @@ These examples work on the following HTML
 
 ```html
 <script>
-		new icgc.CookiesICGC("instamaps.cat",[], {configBtnSelector: "#control"});
+	new icgc.CookiesICGC("instamaps.cat", [], {configBtnSelector: "#control"});
 </script>
 ```
 ![Simple example](./docs/examples/no-customization.png)
@@ -75,9 +80,49 @@ Shows the default popup, sets a cookie on the _instamaps.cat_ domain and doesn't
 
 ```html
 <script>
-		new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"], {configBtnSelector: "#config-button-selector"});
+	new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"], {configBtnSelector: "#control"});
 </script>
 ```
+![Simple example](./docs/examples/no-customization.png)
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker and shows the configure button in the div with id _control_.
+
+```html
+<script>
+	new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"], {
+		configBtnSelector: "#control", 
+		content: { 
+			allow: "Allow", 
+			deny: "Deny"
+		}
+	});
+</script>
+```
+![Simple customization example](./docs/examples/customization.png)
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker, shows the configure button in the div with id _control_ and changes the button labels to *Allow* and *Deny*
+
+```html
+<script>
+	new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"], {
+		configBtnSelector: "#control", 
+		palette:{
+			popup: {background: "#00b050"}, 
+			button: {background: "#222222"},
+		}
+	});
+</script>
+```
+![Simple customization example](./docs/examples/color-customization.png)
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker, shows the configure button in the div with id _control_ and changes the button colors
+
+```html
+<script>
+	const cuqui = new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"]);
+	cuqui.setCookiesEnabledHandler(() => { console.log("Cookies enabled")});
+	cuqui.setCookiesDisabledHandler(() => { console.log("Cookies disabled")});
+</script>
+```
+![Simple customization example](./docs/examples/color-customization.png)
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker, shows the configure button in the div with id _control_ and changes the button colors
 
 ## Building and testing the library
 
