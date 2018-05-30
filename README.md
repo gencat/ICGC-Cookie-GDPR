@@ -25,6 +25,8 @@ If the user _allows_ the use of cookies, **a cookie is set to remember the selec
 ```
 
 ### Create the cookie manager object in a script
+**Note:** It **must** be executed before any code that sets cookies, including Google Analytics
+
 ```html
 <script>
 		const cuqui = new icgc.CookiesICGC("yourdomain.com", 	["your-google-analytics-id", "another-google-analytics-id"], {configBtnSelector: "#config-button-selector"});
