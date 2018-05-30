@@ -58,10 +58,6 @@ class CookiesICGC {
 
 			this.cookieConsent.createPopup();
 
-		} else {
-
-			this.cookieConsent.createConfigButton();
-
 		}
 
 	}

@@ -111,7 +111,7 @@ class Cookieconsent {
 
 	onInit() {
 
-		if (this.hasConsented()) {
+		if (this.hasAnswered()) {
 
 			this.createConfigButton();
 
@@ -137,7 +137,10 @@ class Cookieconsent {
 
 		buttonHTML = buttonHTML.replace("{{config-text}}", this.options.content.config);
 		buttonHTML = buttonHTML.replace("{{config-class}}", btnClass);
-		parent.innerHTML += buttonHTML;
+		// eslint-disable-next-line no-undef
+		const elem = document.createElement("div");
+		elem.innerHTML = buttonHTML;
+		parent.appendChild(elem);
 
 		// eslint-disable-next-line no-undef
 		document.querySelector(".cc-config").addEventListener("click", () => this.onResetConfig());
@@ -146,17 +149,12 @@ class Cookieconsent {
 
 	removeConfigButton() {
 
-		const id = this.options.configBtnSelector;
-		if (id.trim() !== "") {
+		// eslint-disable-next-line no-undef
+		const btn = document.querySelector(".cc-config");
 
-			// eslint-disable-next-line no-undef
-			const btn = document.querySelector(".cc-config");
+		if (btn) {
 
-			if (btn) {
-
-				btn.remove();
-
-			}
+			btn.parentNode.remove();
 
 		}
 

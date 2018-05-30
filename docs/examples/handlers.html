@@ -14,7 +14,9 @@
 </html>
 
 <script>
-	const cuqui = new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"]);
+	const cuqui = new icgc.CookiesICGC("127.0.0.1", ["UA-12345678-1"], {
+		configBtnSelector: "#control"
+	} );
 	cuqui.setCookiesEnabledHandler(() => { console.log("Cookies enabled")});
 	cuqui.setCookiesDisabledHandler(() => { console.log("Cookies disabled")});
 </script>

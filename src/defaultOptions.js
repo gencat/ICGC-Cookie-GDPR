@@ -56,7 +56,7 @@ module.exports = {
 
 	// This is the html for the config button. This only shows up after the user has selected their level of consent
 	// It must include the cc-config class
-	configBtn: "<div class=\"cc-config {{config-class}}\">{{config-text}}</div>",
+	configBtn: "<div class=\"cc-config {{config-class}}\"><img src=\"/dist/cookie-icon-24.png\" style=\"margin-right: 5px;\"/>{{config-text}}</div>",
 
 	// This is the element selector where the config button will be added
 	configBtnSelector: "",

@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "browserify": "^15.2.0",
+    "browserify-css": "^0.14.0",
     "coveralls": "^3.0.0",
     "derequire": "^2.0.6",
     "documentation": "^5.3.5",
@@ -59,9 +60,13 @@
     ]
   },
   "scripts": {
-    "build-dev": "browserify src/index.js --debug --ignore-transform unassertify --standalone icgc > dist/cookies-icgc-dev.js",
     "watch-dev": "watchify src/index.js --debug --ignore-transform unassertify --standalone icgc --outfile dist/cookies-icgc-dev.js --verbose",
-    "build-min": "browserify src/index.js --debug --plugin [minifyify --map cookies-icgc.js.map --output dist/cookies-icgc.js.map] --standalone icgc | derequire > dist/cookies-icgc.js",
+    "build-js": "browserify src/index.js --debug --ignore-transform unassertify --standalone icgc > dist/cookies-icgc-dev.js",
+    "build-js-min": "browserify src/index.js --debug --plugin [minifyify --map cookies-icgc.js.map --output dist/cookies-icgc.js.map] --standalone icgc | derequire > dist/cookies-icgc.js",
+    "build-css": "browserify src/styles/index.css -t [browserify-css --minify=false --inlineImages=true --output dist/cookies-icgc.css]",
+    "build-css-min": "browserify src/styles/index.css -t [browserify-css --minify=true --inlineImages=true --output dist/cookies-icgc.min.css]",
+    "build-dev": "run-p build-js build-css",
+    "build-min": "run-p build-js-min build-css-min",
     "start-server": "st --no-cache -H 127.0.0.1 --port 9966 --index index.html .",
     "start": "run-p watch-dev start-server open",
     "open": "node build/dev-server.js",

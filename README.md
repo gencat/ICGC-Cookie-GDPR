@@ -46,7 +46,7 @@ Where:
 ||deny|The text used in the Deny button|
 ||configButton|The text used in the configuration button that will be shown when the user has choosen some option|
 ||href|The URL where the user will be directed when the privacy policy link is pressed|
-|configBtnSelector||**Required:** A div element selector **already existing on your HTML** where the configure cookies button will be shown|
+|configBtnSelector||A div element selector **already existing on your HTML** where the configure cookies button will be shown. If this parameter is not set, a div with class _config-popup_ will be created|
 * The _setCookiesEnabledHandler_ function is used to set a callback that will be run when the user has enabled the cookies by pressing the **Allow** button
 * The _setCookiesDisabledHandler_ function is used to set a callback that will be run when the user has disabled the cookies by pressing the **Deny** button
 
@@ -116,13 +116,25 @@ Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a 
 
 ```html
 <script>
-	const cuqui = new icgc.CookiesICGC("instamaps.cat", ["UA-12345678-1"]);
+	const cuqui = new icgc.CookiesICGC("127.0.0.1", ["UA-12345678-1"], {
+		configBtnSelector: "#control"
+	} );
 	cuqui.setCookiesEnabledHandler(() => { console.log("Cookies enabled")});
 	cuqui.setCookiesDisabledHandler(() => { console.log("Cookies disabled")});
 </script>
 ```
 ![Simple customization example](./docs/examples/color-customization.png)
 Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker, shows the configure button in the div with id _control_ and changes the button colors
+
+```html
+<script>
+	const cuqui = new icgc.CookiesICGC("127.0.0.1", ["UA-12345678-1"]);
+	cuqui.setCookiesEnabledHandler(() => { console.log("Cookies enabled")});
+	cuqui.setCookiesDisabledHandler(() => { console.log("Cookies disabled")});
+</script>
+```
+![Default popup example](./docs/examples/popup.png)
+Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker and the default configure button popup
 
 ## Building and testing the library
 
