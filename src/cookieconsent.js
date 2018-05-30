@@ -130,7 +130,9 @@ class Cookieconsent {
 		if (id.trim() !== "") {
 
 			// eslint-disable-next-line no-undef
-			parent = document.querySelector(id);
+			const divElem = document.querySelector(id);
+			// eslint-disable-next-line no-undef
+			parent = (!divElem) ? document.body : divElem;
 			btnClass = "";
 
 		}

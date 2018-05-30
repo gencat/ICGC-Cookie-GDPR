@@ -143,6 +143,12 @@ class CookiesICGC {
 		this.areCookiesEnabled = true;
 		this.enableGA();
 
+		if (this.cookiesEnabledHandler) {
+
+			this.cookiesEnabledHandler();
+
+		}
+
 	}
 
 	setCookiesDisabledHandler(callback: Function) {
@@ -169,6 +175,12 @@ class CookiesICGC {
 		this.disableGA();
 
 		this.areCookiesEnabled = false;
+
+		if (this.cookiesDisabledHandler) {
+
+			this.cookiesDisabledHandler();
+
+		}
 
 	}
 

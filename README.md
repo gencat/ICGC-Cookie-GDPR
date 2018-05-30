@@ -46,7 +46,7 @@ Where:
 ||deny|The text used in the Deny button|
 ||configButton|The text used in the configuration button that will be shown when the user has choosen some option|
 ||href|The URL where the user will be directed when the privacy policy link is pressed|
-|configBtnSelector||A div element selector **already existing on your HTML** where the configure cookies button will be shown. If this parameter is not set, a div with class _config-popup_ will be created|
+|configBtnSelector||A div element selector **already existing on your HTML** where the configure cookies button will be shown. If this parameter is not set, a div with class _config-popup_ will be created. If it's set to a non existing div, one is created in the body|
 * The _setCookiesEnabledHandler_ function is used to set a callback that will be run when the user has enabled the cookies by pressing the **Allow** button
 * The _setCookiesDisabledHandler_ function is used to set a callback that will be run when the user has disabled the cookies by pressing the **Deny** button
 
