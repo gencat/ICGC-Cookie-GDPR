@@ -3,8 +3,6 @@ node_modules
 .vscode
 _batfish_site
 _batfish_tmp
-/docs/**/*
-!/docs/examples/*
 /dist/project-template-dev.js
 /dist/project-template.js
 /dist/project-template.js.map

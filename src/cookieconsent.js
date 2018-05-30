@@ -2,7 +2,7 @@
 "use strict";
 const defaultOptions = require("./defaultOptions");
 const cookieManager = require("./cookieManager");
-const util = require("./util");
+const Utils = require("./utils");
 const Popup = require("./popup");
 
 class Cookieconsent {
@@ -20,7 +20,7 @@ class Cookieconsent {
 		this.options = defaultOptions;
 
 		// merge in user options
-		if (util.isPlainObject(options)) {
+		if (Utils.isPlainObject(options)) {
 
 			Object.assign(this.options, options);
 
@@ -30,7 +30,7 @@ class Cookieconsent {
 		// TODO: navigator and document shouldn't be used here
 		// eslint-disable-next-line no-undef
 		this.options.userAgent = navigator.userAgent;
-		this.options.isMobile = util.isMobile(this.options.userAgent);
+		this.options.isMobile = Utils.isMobile(this.options.userAgent);
 
 	}
 
@@ -111,7 +111,7 @@ class Cookieconsent {
 
 	onInit() {
 
-		if (this.hasConsented()) {
+		if (this.hasAnswered()) {
 
 			this.createConfigButton();
 
@@ -122,30 +122,39 @@ class Cookieconsent {
 	createConfigButton() {
 
 		const id = this.options.configBtnSelector;
+		let buttonHTML = this.options.configBtn;
+		// eslint-disable-next-line no-undef
+		let parent = document.body;
+		let btnClass = "config-popup";
+
 		if (id.trim() !== "") {
 
 			// eslint-disable-next-line no-undef
-			document.querySelector(id).innerHTML = this.options.configBtn;
-			// eslint-disable-next-line no-undef
-			document.querySelector(".cc-config").addEventListener("click", () => this.onResetConfig());
+			parent = document.querySelector(id);
+			btnClass = "";
 
 		}
+
+		buttonHTML = buttonHTML.replace("{{config-text}}", this.options.content.config);
+		buttonHTML = buttonHTML.replace("{{config-class}}", btnClass);
+		// eslint-disable-next-line no-undef
+		const elem = document.createElement("div");
+		elem.innerHTML = buttonHTML;
+		parent.appendChild(elem);
+
+		// eslint-disable-next-line no-undef
+		document.querySelector(".cc-config").addEventListener("click", () => this.onResetConfig());
 
 	}
 
 	removeConfigButton() {
 
-		const id = this.options.configBtnSelector;
-		if (id.trim() !== "") {
+		// eslint-disable-next-line no-undef
+		const btn = document.querySelector(".cc-config");
 
-			// eslint-disable-next-line no-undef
-			const btn = document.querySelector(".cc-config");
+		if (btn) {
 
-			if (btn) {
-
-				btn.remove();
-
-			}
+			btn.parentNode.remove();
 
 		}
 
