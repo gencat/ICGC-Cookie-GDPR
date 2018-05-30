@@ -20,8 +20,8 @@ If the user _allows_ the use of cookies, **a cookie is set to remember the selec
 
 * or use the github stored files to always use the last version
 ```html
-<link rel="stylesheet" href="https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/dist/cookies-icgc.min.css">
-<script src="https://raw.githubusercontent.com/gencat/ICGC-Cookie-GDPR/master/dist/cookies-icgc.js"></script>
+<link rel="stylesheet" href="https://gencat.github.io/ICGC-Cookie-GDPR/dist/cookies-icgc.min.css">
+<script src="https://gencat.github.io/ICGC-Cookie-GDPR/dist/cookies-icgc.js"></script>
 ```
 
 ### Create the cookie manager object in a script
