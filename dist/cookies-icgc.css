@@ -222,7 +222,14 @@
 .config-popup {
   position: fixed;
   bottom: 0px;
-  right: 0px;
+  left: 0px;
+  background-color: white;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.config-popup > img {
+  width: 24px;
+  height: 24px;
 }
 @media print {
   .cc-window,
