@@ -134,6 +134,7 @@ Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a 
 </script>
 ```
 ![Default popup example](./docs/examples/popup.png)
+
 Shows the default popup, sets a cookie on the _instamaps.cat_ domain, manages a Google Analytics tracker and the default configure button popup
 
 ## Building and testing the library
