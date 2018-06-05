@@ -8,6 +8,8 @@ This library presents the user with a small banner that shows two buttons to com
 If the user _allows_ the use of cookies, **a cookie is set to remember the selected option and enables the tracking by Google Analytics**. If the user _denies_ the use of cookies, **the option is stored and Google Analytics trackers are disabled**. A _configure cookies_ button is shown whenever any option is chosen so the user can change his mind
 ---
 
+You can see it working in [instamaps.cat](https://www.instamaps.cat/) and all the other prototypes in [betaportal](http://betaportal.icgc.cat/)
+
 ## Using the banner on your website
 ### Get the required files
 * Copy the files found in the _dist_ folder to your project and use it in your html
