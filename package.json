@@ -13,6 +13,9 @@
     "node": ">=6.4.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
     "browserify": "^15.2.0",
     "browserify-css": "^0.14.0",
     "coveralls": "^3.0.0",
@@ -77,7 +80,9 @@
     "test-unit": "tap --reporter classic --no-coverage test/unit",
     "test-flow": "flow .",
     "test-cov": "nyc --require=flow-remove-types/register --reporter=text-summary --reporter=lcov --cache npm run test-unit",
-    "pre-production": "run-s lint build-min test test-cov"
+    "pre-production": "run-s lint build-min test test-cov",
+    "ie11-dev": "babel dist/cookies-icgc-dev.js --out-file dist/cookies-icgc-dev-ie11.js --presets=env",
+    "ie11": "babel dist/cookies-icgc.js --out-file dist/cookies-icgc-ie11.js --presets=env"
   },
   "files": [
     "build/",

@@ -1,0 +1,10 @@
+{
+	"plugins": ["transform-object-assign"],
+	"presets": [
+	  ["env", {
+		"targets": {
+		  "browsers": [ "ie <= 11"]
+		}
+	  }]
+	]
+  }

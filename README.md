@@ -24,6 +24,8 @@ If the user _allows_ the use of cookies, **a cookie is set to remember the selec
 <script src="https://gencat.github.io/ICGC-Cookie-GDPR/dist/cookies-icgc.js"></script>
 ```
 
+**Note: If you need to support Internet Explorer 11 use the *cookies-icgc-ie11.js***
+
 ### Create the cookie manager object in a script
 **Note:** It **must** be executed before any code that sets cookies, including Google Analytics
 
