@@ -153,7 +153,7 @@ class Cookieconsent {
 	removeConfigButton() {
 
 		// eslint-disable-next-line no-undef
-		const btn = document.querySelector(".cc-config-parent");
+		const btn = document.querySelector("#cc-config-parent");
 
 		if (btn) {
 
