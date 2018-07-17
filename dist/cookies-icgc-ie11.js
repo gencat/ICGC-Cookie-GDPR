@@ -93,7 +93,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           return t.onResetConfig();
         });
       }, Cookieconsent.prototype.removeConfigButton = function () {
-        var t = document.querySelector(".cc-config-parent");t && t.remove();
+        var t = document.querySelector("#cc-config-parent");t && t.remove();
       }, Cookieconsent.prototype.onResetConfig = function () {
         this.removeConfigButton(), this.options.onResetConfig();
       }, module.exports = Cookieconsent;

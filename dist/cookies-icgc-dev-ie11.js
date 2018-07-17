@@ -238,6 +238,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				buttonHTML = buttonHTML.replace("{{config-class}}", btnClass);
 				// eslint-disable-next-line no-undef
 				var elem = document.createElement("div");
+				elem.id = "cc-config-parent";
 				elem.innerHTML = buttonHTML;
 				parent.appendChild(elem);
 
@@ -250,11 +251,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			Cookieconsent.prototype.removeConfigButton = function removeConfigButton() {
 
 				// eslint-disable-next-line no-undef
-				var btn = document.querySelector(".cc-config");
+				var btn = document.querySelector("#cc-config-parent");
 
 				if (btn) {
 
-					btn.parentNode.remove();
+					btn.remove();
 				}
 			};
 
