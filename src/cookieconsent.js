@@ -141,6 +141,7 @@ class Cookieconsent {
 		buttonHTML = buttonHTML.replace("{{config-class}}", btnClass);
 		// eslint-disable-next-line no-undef
 		const elem = document.createElement("div");
+		elem.id = "cc-config-parent";
 		elem.innerHTML = buttonHTML;
 		parent.appendChild(elem);
 
@@ -152,11 +153,11 @@ class Cookieconsent {
 	removeConfigButton() {
 
 		// eslint-disable-next-line no-undef
-		const btn = document.querySelector(".cc-config");
+		const btn = document.querySelector(".cc-config-parent");
 
 		if (btn) {
 
-			btn.parentNode.remove();
+			btn.remove();
 
 		}
 

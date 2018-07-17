@@ -1,5 +1,7 @@
 "use strict";
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 (function (f) {
@@ -57,7 +59,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           Utils = _dereq_("./utils"),
           Popup = _dereq_("./popup"),
           Cookieconsent = function Cookieconsent(t) {
-        this.status = { deny: "deny", allow: "allow" }, this.options = defaultOptions, Utils.isPlainObject(t) && Object.assign(this.options, t), this.options.userAgent = navigator.userAgent, this.options.isMobile = Utils.isMobile(this.options.userAgent);
+        this.status = { deny: "deny", allow: "allow" }, this.options = defaultOptions, Utils.isPlainObject(t) && _extends(this.options, t), this.options.userAgent = navigator.userAgent, this.options.isMobile = Utils.isMobile(this.options.userAgent);
       };Cookieconsent.prototype.createPopup = function () {
         var t = this;return new Promise(function (o) {
           var e = new Popup(t.options);e.setAllowHandler(function () {
@@ -87,11 +89,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             n = document.body,
             i = "config-popup";if ("" !== o.trim()) {
           var s = document.querySelector(o);n = s || document.body, i = "";
-        }e = e.replace("{{config-text}}", this.options.content.config), e = e.replace("{{config-class}}", i);var c = document.createElement("div");c.innerHTML = e, n.appendChild(c), document.querySelector(".cc-config").addEventListener("click", function () {
+        }e = e.replace("{{config-text}}", this.options.content.config), e = e.replace("{{config-class}}", i);var c = document.createElement("div");c.id = "cc-config-parent", c.innerHTML = e, n.appendChild(c), document.querySelector(".cc-config").addEventListener("click", function () {
           return t.onResetConfig();
         });
       }, Cookieconsent.prototype.removeConfigButton = function () {
-        var t = document.querySelector(".cc-config");t && t.parentNode.remove();
+        var t = document.querySelector(".cc-config-parent");t && t.remove();
       }, Cookieconsent.prototype.onResetConfig = function () {
         this.removeConfigButton(), this.options.onResetConfig();
       }, module.exports = Cookieconsent;
