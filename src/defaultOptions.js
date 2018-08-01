@@ -103,4 +103,10 @@ module.exports = {
 		popup: {background: "#222222"},
 		button: {background: "#00b050"}
 	},
+	// Set this value to true if you need the Google Analytics cookies
+	// to be disabled. Analytics can be anonimized so the cookies
+	// don't have to be disabled. Take into account that if this value
+	// is set to false (as it is by default), you should configure
+	// google analytics to be anonimized
+	removeGACookies: false
 };

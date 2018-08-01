@@ -13,6 +13,7 @@ class CookiesICGC {
 	areCookiesEnabled: boolean;
 	cookiesEnabledHandler: Function;
 	cookiesDisabledHandler: Function;
+	removeGACookies: boolean;
 
 	/**
 	 * A `CookiesICGC` object represents the object that manages the cookie consent under the European GDPR law
@@ -50,6 +51,7 @@ class CookiesICGC {
 		this.gaIds = gaIds;
 		this.cookiesEnabledHandler = null;
 		this.cookiesDisabledHandler = null;
+		this.removeGACookies = mainOptions.removeGACookies;
 		this.cookieConsent = new CookieConsent(mainOptions);
 
 		this.onInit();
@@ -141,7 +143,12 @@ class CookiesICGC {
 	enableCookies() {
 
 		this.areCookiesEnabled = true;
-		this.enableGA();
+
+		if (this.removeGACookies) {
+
+			this.enableGA();
+
+		}
 
 		if (this.cookiesEnabledHandler) {
 
@@ -172,7 +179,11 @@ class CookiesICGC {
 
 	disableCookies() {
 
-		this.disableGA();
+		if (this.removeGACookies) {
+
+			this.disableGA();
+
+		}
 
 		this.areCookiesEnabled = false;
 

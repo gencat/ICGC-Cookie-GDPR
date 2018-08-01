@@ -5,8 +5,10 @@ A small cookie consent banner that complies with the EU GDPR.
 This library presents the user with a small banner that shows two buttons to comply with the EU GDPR law. 
 
 ---
-If the user _allows_ the use of cookies, **a cookie is set to remember the selected option and enables the tracking by Google Analytics**. If the user _denies_ the use of cookies, **the option is stored and Google Analytics trackers are disabled**. A _configure cookies_ button is shown whenever any option is chosen so the user can change his mind
+If the user _allows_ the use of cookies, **a cookie is set to remember the selected option and enables the tracking by Google Analytics**. If the user _denies_ the use of cookies and the _removeGACookies_ configuration option is set to **true**, **the option is stored and Google Analytics trackers are disabled**. If the user _denies_ the use of cookies and the _removeGACookies_ configuration option is set to **false(default option)**, **the option is stored, and Google Analytics trackers are enabled so they must be configured to perform IP anonymization**. A _configure cookies_ button is shown whenever any option is chosen so the user can change his mind
 ---
+
+**Notice:** By default, this library doesn't stop Google Analytics tracking so Google Analytics Cookies must be configured to anomymize the IP to comply with the GDPR. If you want the Google Analytics cookies to be disabled, the _removeGACookies_ configuration option must be set to **true**
 
 You can see it working in [instamaps.cat](https://www.instamaps.cat/) and all the other prototypes in [betaportal](http://betaportal.icgc.cat/)
 

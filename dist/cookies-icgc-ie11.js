@@ -104,14 +104,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           Utils = _dereq_("./utils"),
           defaultOptions = _dereq_("./defaultOptions"),
           CookiesICGC = function CookiesICGC(e, o, i) {
-        var n = this,
-            s = Utils.deepMerge({}, defaultOptions, i);s.cookie.domain = e, s.onInitialise = function () {
-          n.onInit();
-        }, s.onStatusChange = function () {
-          n.onChange();
-        }, s.onResetConfig = function () {
-          n.onResetConfig();
-        }, this.areCookiesEnabled = !1, this.gaDisablePrefix = "ga-disable-", this.gaIds = o, this.cookiesEnabledHandler = null, this.cookiesDisabledHandler = null, this.cookieConsent = new CookieConsent(s), this.onInit(), this.hasAnswered() || this.cookieConsent.createPopup();
+        var s = this,
+            t = Utils.deepMerge({}, defaultOptions, i);t.cookie.domain = e, t.onInitialise = function () {
+          s.onInit();
+        }, t.onStatusChange = function () {
+          s.onChange();
+        }, t.onResetConfig = function () {
+          s.onResetConfig();
+        }, this.areCookiesEnabled = !1, this.gaDisablePrefix = "ga-disable-", this.gaIds = o, this.cookiesEnabledHandler = null, this.cookiesDisabledHandler = null, this.removeGACookies = t.removeGACookies, this.cookieConsent = new CookieConsent(t), this.onInit(), this.hasAnswered() || this.cookieConsent.createPopup();
       };CookiesICGC.prototype.onInit = function () {
         this.hasConsented() ? this.enableCookies() : this.disableCookies(), this.cookieConsent.onInit();
       }, CookiesICGC.prototype.onChange = function () {
@@ -125,7 +125,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }, CookiesICGC.prototype.setCookiesEnabledHandler = function (e) {
         this.cookiesEnabledHandler = e;
       }, CookiesICGC.prototype.enableCookies = function () {
-        this.areCookiesEnabled = !0, this.enableGA(), this.cookiesEnabledHandler && this.cookiesEnabledHandler();
+        this.areCookiesEnabled = !0, this.removeGACookies && this.enableGA(), this.cookiesEnabledHandler && this.cookiesEnabledHandler();
       }, CookiesICGC.prototype.setCookiesDisabledHandler = function (e) {
         this.cookiesDisabledHandler = e;
       }, CookiesICGC.prototype.deleteCookies = function () {
@@ -133,7 +133,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           CookieManager.deleteCookie(e);
         });
       }, CookiesICGC.prototype.disableCookies = function () {
-        this.disableGA(), this.areCookiesEnabled = !1, this.cookiesDisabledHandler && this.cookiesDisabledHandler();
+        this.removeGACookies && this.disableGA(), this.areCookiesEnabled = !1, this.cookiesDisabledHandler && this.cookiesDisabledHandler();
       }, CookiesICGC.prototype.areCookiesEnabled = function () {
         return this.areCookiesEnabled;
       }, CookiesICGC.prototype.enableGA = function () {
@@ -147,7 +147,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }, module.exports = CookiesICGC;
     }, { "./cookieManager": 2, "./cookieconsent": 3, "./defaultOptions": 5, "./utils": 8 }], 5: [function (_dereq_, module, exports) {
       "use strict";
-      module.exports = { container: null, cookie: { name: "cookieconsentICGC_status", path: "/", domain: "file", expiryDays: 365 }, content: { header: "Cookies utilitzades a la web!", message: "Utilitzem galetes per distingir-vos d'altres usuaris en els nostres webs, per millorar la informació i els serveis que us oferim, i per facilitar-vos l'accés. Per a més informació, consulteu la ", allow: "Acceptar", deny: "Rebutjar", link: "política de galetes", href: "http://www.icgc.cat/L-ICGC/Sobre-l-ICGC/Politiques/Politica-de-proteccio-de-dades-personals/Politica-de-galetes-cookies", close: "&#x274c;", config: "Configurar cookies" }, elements: { header: '<span class="cc-header">{{header}}</span>&nbsp;', message: '<span id="cookieconsent:desc" class="cc-message">{{message}}</span>', messagelink: '<span id="cookieconsent:desc" class="cc-message">{{message}} <a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" rel="noopener noreferrer nofollow" target="_blank">{{link}}</a></span>', allow: '<a aria-label="allow cookies" role=button tabindex="0"  class="cc-btn cc-allow">{{allow}}</a>', deny: '<a aria-label="deny cookies" role=button tabindex="0" class="cc-btn cc-deny">{{deny}}</a>', link: '<a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" target="_blank">{{link}}</a>', close: '<span aria-label="dismiss cookie message" role=button tabindex="0" class="cc-close">{{close}}</span>' }, window: '<div role="dialog" aria-live="polite" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window {{classes}}">\x3c!--googleoff: all--\x3e{{children}}\x3c!--googleon: all--\x3e</div>', configBtn: '<div class="cc-config {{config-class}}"><img src="https://gencat.github.io/ICGC-Cookie-GDPR/dist/cookie-icon-24.png" style="margin-right: 5px;"/>{{config-text}}</div>', configBtnSelector: "", compliance: '<div class="cc-compliance cc-highlight">{{deny}}{{allow}}</div>', layouts: { basic: "{{messagelink}}{{compliance}}", "basic-close": "{{messagelink}}{{compliance}}{{close}}", "basic-header": "{{header}}{{message}}{{link}}{{compliance}}" }, layout: "basic", position: "bottom", theme: "block", palette: { popup: { background: "#222222" }, button: { background: "#00b050" } } };
+      module.exports = { container: null, cookie: { name: "cookieconsentICGC_status", path: "/", domain: "file", expiryDays: 365 }, content: { header: "Cookies utilitzades a la web!", message: "Utilitzem galetes per distingir-vos d'altres usuaris en els nostres webs, per millorar la informació i els serveis que us oferim, i per facilitar-vos l'accés. Per a més informació, consulteu la ", allow: "Acceptar", deny: "Rebutjar", link: "política de galetes", href: "http://www.icgc.cat/L-ICGC/Sobre-l-ICGC/Politiques/Politica-de-proteccio-de-dades-personals/Politica-de-galetes-cookies", close: "&#x274c;", config: "Configurar cookies" }, elements: { header: '<span class="cc-header">{{header}}</span>&nbsp;', message: '<span id="cookieconsent:desc" class="cc-message">{{message}}</span>', messagelink: '<span id="cookieconsent:desc" class="cc-message">{{message}} <a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" rel="noopener noreferrer nofollow" target="_blank">{{link}}</a></span>', allow: '<a aria-label="allow cookies" role=button tabindex="0"  class="cc-btn cc-allow">{{allow}}</a>', deny: '<a aria-label="deny cookies" role=button tabindex="0" class="cc-btn cc-deny">{{deny}}</a>', link: '<a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" target="_blank">{{link}}</a>', close: '<span aria-label="dismiss cookie message" role=button tabindex="0" class="cc-close">{{close}}</span>' }, window: '<div role="dialog" aria-live="polite" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window {{classes}}">\x3c!--googleoff: all--\x3e{{children}}\x3c!--googleon: all--\x3e</div>', configBtn: '<div class="cc-config {{config-class}}"><img src="https://gencat.github.io/ICGC-Cookie-GDPR/dist/cookie-icon-24.png" style="margin-right: 5px;"/>{{config-text}}</div>', configBtnSelector: "", compliance: '<div class="cc-compliance cc-highlight">{{deny}}{{allow}}</div>', layouts: { basic: "{{messagelink}}{{compliance}}", "basic-close": "{{messagelink}}{{compliance}}{{close}}", "basic-header": "{{header}}{{message}}{{link}}{{compliance}}" }, layout: "basic", position: "bottom", theme: "block", palette: { popup: { background: "#222222" }, button: { background: "#00b050" } }, removeGACookies: !1 };
     }, {}], 6: [function (_dereq_, module, exports) {
       "use strict";
       var version = _dereq_("../package.json").version,

@@ -299,6 +299,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				this.gaIds = gaIds;
 				this.cookiesEnabledHandler = null;
 				this.cookiesDisabledHandler = null;
+				this.removeGACookies = mainOptions.removeGACookies;
 				this.cookieConsent = new CookieConsent(mainOptions);
 
 				this.onInit();
@@ -378,7 +379,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			CookiesICGC.prototype.enableCookies = function enableCookies() {
 
 				this.areCookiesEnabled = true;
-				this.enableGA();
+
+				if (this.removeGACookies) {
+
+					this.enableGA();
+				}
 
 				if (this.cookiesEnabledHandler) {
 
@@ -402,7 +407,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 			CookiesICGC.prototype.disableCookies = function disableCookies() {
 
-				this.disableGA();
+				if (this.removeGACookies) {
+
+					this.disableGA();
+				}
 
 				this.areCookiesEnabled = false;
 
@@ -550,7 +558,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				palette: {
 					popup: { background: "#222222" },
 					button: { background: "#00b050" }
-				}
+				},
+				// Set this value to true if you need the Google Analytics cookies
+				// to be disabled. Analytics can be anonimized so the cookies
+				// don't have to be disabled. Take into account that if this value
+				// is set to false (as it is by default), you should configure
+				// google analytics to be anonimized
+				removeGACookies: false
 			};
 		}, {}], 6: [function (require, module, exports) {
 			//      
