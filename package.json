@@ -39,7 +39,7 @@
     "present": "^1.0.0",
     "prismjs": "^1.11.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.3",
     "react-helmet": "^5.2.0",
     "st": "^1.2.2",
     "watchify": "^3.10.0"
