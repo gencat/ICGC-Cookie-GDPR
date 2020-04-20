@@ -17,7 +17,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "browserify": "^15.2.0",
-    "browserify-css": "^0.14.0",
+    "browserify-css": "^0.15.0",
     "coveralls": "^3.0.0",
     "derequire": "^2.0.6",
     "documentation": "^5.3.5",
@@ -27,7 +27,7 @@
     "eslint-plugin-react": "^7.6.1",
     "execcommand-copy": "^1.1.0",
     "flow-bin": "^0.64.0",
-    "flow-coverage-report": "^0.4.1",
+    "flow-coverage-report": "^0.7.0",
     "flow-remove-types": "^1.2.3",
     "github-slugger": "^1.2.0",
     "glob": "^7.1.2",
@@ -42,7 +42,7 @@
     "react-dom": "^16.3.3",
     "react-helmet": "^5.2.0",
     "st": "^1.2.2",
-    "watchify": "^3.10.0"
+    "watchify": "^3.11.1"
   },
   "browserify": {
     "transform": [
