@@ -33,6 +33,7 @@
     "github-slugger": "^1.2.0",
     "glob": "^7.1.2",
     "in-publish": "^2.0.0",
+    "mem": "^6.1.0",
     "minifyify": "^7.3.5",
     "mock-browser": "^0.92.14",
     "npm-run-all": "^4.1.2",
@@ -103,6 +104,7 @@
     "unflowify": "^1.0.1"
   },
   "resolutions": {
-    "diff": "^4.0.2"
+    "diff": "^4.0.2",
+    "mem": "^6.1.0"
   }
 }
