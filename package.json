@@ -100,7 +100,7 @@
     "bubleify": "^1.2.1",
     "eslint-config-geostart": "git+https://github.com/geostarters/eslint-config-geostart.git",
     "opn": "^5.5.0",
-    "tap": "^11.1.0",
+    "tap": "^16.3.4",
     "unassertify": "^2.1.0",
     "unflowify": "^1.0.1"
   },
